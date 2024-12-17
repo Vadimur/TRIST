@@ -1,0 +1,29 @@
+name: Destroy Terraform infrastructure
+
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform-destroy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ../../terraform
+    env:
+      TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+      TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform destroy -auto-approve
