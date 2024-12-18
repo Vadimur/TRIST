@@ -18,6 +18,15 @@ provider "aws" {
   secret_key = var.aws_secret_key
 }
 
+# Remote state
+terraform {
+  backend "s3" {
+    bucket      = "terra-lab02"
+    key         = "state/terraform.tfstate"
+    region      = "us-east-1"
+  }
+}
+
 # Security Group
 resource "aws_security_group" "terra_web_sg" {
   name = "terraWebAppSecurityGroup"
