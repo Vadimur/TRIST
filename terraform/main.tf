@@ -21,28 +21,28 @@ provider "aws" {
 # Remote state
 terraform {
   backend "s3" {
-    bucket      = "terra-lab02"
-    key         = "state/terraform.tfstate"
-    region      = "us-east-1"
+    bucket = "terra-lab02"
+    key    = "state/terraform.tfstate"
+    region = "us-east-1"
   }
 }
 
 # Security Group
 resource "aws_security_group" "terra_web_sg" {
-  name = "terraWebAppSecurityGroup"
+  name = "terraHomeWebAppSecurityGroup"
 
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["77.47.209.92/32"]
+    cidr_blocks = ["46.219.132.38/32"]
   }
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["77.47.209.92/32"]
+    cidr_blocks = ["46.219.132.38/32"]
   }
 
   egress {
